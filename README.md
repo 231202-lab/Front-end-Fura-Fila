@@ -2,6 +2,6 @@
 
 (Em desenvolvimento Front-End)
 
-Primeira tela app.
+Primeira tela app..
 
 
