@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Não quer fila? FuraFila</title>
+    <link type="text/css" rel="stylesheet" href="style.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Signika:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div id="logo"><img src="FuraFila.png" alt="Logo"></div>
+        <div class="hamburger-menu">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </header>
+    <nav>
+        <ul class="nav-links">
+            <li><a href="#">Pizzaria</a></li>
+            <li><a href="#">Churrasco</a></li>
+            <li><a href="#">Japonês</a></li>
+            <li><a href="#">Coreano</a></li>
+            <li><a href="#">Fast Food</a></li>
+            <li><a href="#">Italiana</a></li>
+            <li><a href="#">Alemã</a></li>
+            <li><a href="#">Chinesa</a></li>
+        </ul>
+    </nav>
+
+    <section>
+        <h2>Faça a sua reserva!</h2>
+        <p>Preencha com os seus dados agora!</p>
+        <div class="form-container">
+            <form>
+                <input type="date" placeholder="Data" required>
+                <input type="number" placeholder="Número de pessoas" required>
+                <input type="time" placeholder="Melhor horário" required>
+                <button type="submit">Reservar</button>
+            </form>
+        </div>
+    </section>
+
+    <footer class="footer-rodape">
+        <p>Direitos autorais © 2024</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const menu = document.querySelector('.hamburger-menu');
+            const navLinks = document.querySelector('.nav-links');
+    
+            menu.addEventListener('click', function() {
+                navLinks.classList.toggle('active');
+            });
+        });
+    </script>
+</body>
+</html>

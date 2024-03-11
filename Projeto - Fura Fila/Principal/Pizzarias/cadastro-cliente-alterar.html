@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Não quer fila? FuraFila</title>
+    <link type="text/css" rel="stylesheet" href="style.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Signika:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div id="logo"><img src="FuraFila.png" alt="Logo"></div>
+        <div class="hamburger-menu">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </header>
+    <nav>
+        <ul class="nav-links">
+            <li><a href="#">Pizzaria</a></li>
+            <li><a href="#">Churrasco</a></li>
+            <li><a href="#">Japonês</a></li>
+            <li><a href="#">Coreano</a></li>
+            <li><a href="#">Fast Food</a></li>
+            <li><a href="#">Italiana</a></li>
+            <li><a href="#">Alemã</a></li>
+            <li><a href="#">Chinesa</a></li>
+        </ul>
+    </nav>
+
+    <section>
+        <h2>Cadastre-se para Reservar!</h2>
+        <p>Crie o seu perfil para reservar mesas nos melhores restaurantes da sua cidade. Aproveite, é grátis!</p>
+        <div class="form-container">
+            <form>
+                <input type="text" placeholder="Nome" required>
+                <input type="email" placeholder="Email" required>
+                <input type="text" placeholder="CPF" required>
+                <input type="tel" placeholder="Telefone" required>
+                <input type="date" placeholder="Data de Nascimento" required>
+                <input type="password" placeholder="Senha" required>
+                <button type="button" class="alterar-dados">Alterar dados</button>
+            </form>
+        </div>
+    </section>
+
+    <footer class="footer-rodape">
+        <p>Direitos autorais © 2024</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const menu = document.querySelector('.hamburger-menu');
+            const navLinks = document.querySelector('.nav-links');
+    
+            menu.addEventListener('click', function() {
+                navLinks.classList.toggle('active');
+            });
+        });
+    </script>
+</body>
+</html>
