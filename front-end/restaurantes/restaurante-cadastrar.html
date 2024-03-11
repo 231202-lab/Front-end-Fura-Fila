@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Não quer fila? FuraFila</title>
+    <link type="text/css" rel="stylesheet" href="../style.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Signika:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div id="logo">
+            <a href="../index.html">
+                <img src="../images/FuraFila.png" alt="Logo">
+            </a>
+        </div>
+
+        <div class="hamburger-menu">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </header>
+    <nav>
+        <ul class="nav-links">
+            <li><a href="../controle/controleRestaurante.html">Voltar</a></li>
+        </ul>
+    </nav>
+
+    <section>
+        <h2>Cadastre o seu restaurante!</h2>
+        <p>Crie o perfil do seu restaurante para receber reservas e tornar o seu estabelecimento cada vez mais popular.
+            Aproveite, é grátis!</p>
+        <div class="form-container">
+            <form>
+                <input type="text" placeholder="Nome do estabelecimento" required>
+                <input type="text" placeholder="CEP" required>
+                <input type="text" placeholder="Endereço" required>
+                <input type="number" placeholder="Número disponível para reservas" required>
+                <input type="tel" placeholder="Telefone" required>
+                <input type="password" placeholder="Senha" required>
+                <button type="submit">Cadastrar</button>
+            </form>
+        </div>
+    </section>
+
+    <footer class="footer-rodape">
+        <p>Direitos autorais © 2024</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const menu = document.querySelector('.hamburger-menu');
+            const navLinks = document.querySelector('.nav-links');
+    
+            menu.addEventListener('click', function() {
+                navLinks.classList.toggle('active');
+            });
+        });
+    </script>
+</body>
+</html>
