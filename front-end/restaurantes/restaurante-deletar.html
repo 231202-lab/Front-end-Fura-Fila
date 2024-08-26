@@ -32,10 +32,15 @@
         <p>informe o código do restaurante para inativar seu cadastro</p>
         <div class="form-container">
             <form>
-                <input type="text" placeholder="ID do restaurante" required>
-                <button type="button" class="alterar-dados">Desativar</button>
+                <input type="text" name="restaurante_id" placeholder="ID do restaurante" required>
+                <button type="submit" class="desativar-dados">Desativar</button>
             </form>
         </div>
+
+        <div id="resultadoDeletar">
+            <!-- Aqui será exibido o resultado da exclusão -->
+        </div>
+
     </section>
 
     <footer class="footer-rodape">
@@ -44,13 +49,44 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('deletarRestauranteForm');
+            const resultadoDiv = document.getElementById('resultadoDeletar');
             const menu = document.querySelector('.hamburger-menu');
             const navLinks = document.querySelector('.nav-links');
     
+            // alternar menu
             menu.addEventListener('click', function() {
                 navLinks.classList.toggle('active');
             });
+
+            // Lidando o envio do formulário
+            form.addEventListener('submit', function(event) {
+                event.preventDefault(); // Impede o envio tradicional do formulário
+
+                // Obtém o valor do ID do restaurante
+                const restauranteId = form.restaurante_id.value;
+
+                // Envia a requisição DELETE para o backend
+                fetch(`http://localhost:3000/deletar-restaurante?restaurante_id=${restauranteId}`, {
+                    method: 'DELETE'
+                })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Restaurante não encontrado');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        // Exibe a mensagem de sucesso na página
+                        resultadoDiv.innerHTML = `<p style="color:green;">${data.message}</p>`;
+                    })
+                    .catch(error => {
+                        // Lida com erros (ex.: restaurante não encontrado)
+                        resultadoDiv.innerHTML = `<p style="color:red;">${error.message}</p>`;
+                    });
+            });
         });
     </script>
+
 </body>
 </html>

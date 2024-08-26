@@ -31,9 +31,12 @@
         <p>Informe o código do cliente para realizar a consulta</p>
         <div class="form-container">
             <form>
-                <input type="text" placeholder="Informe o ID do cliente" required>
-                <button type="button" class="alterar-dados">Consultar</button>
+                <input type="text" name="cliente_id" placeholder="Informe o ID do cliente" required>
+                <button type="submit" class="consultar-dados">Consultar</button>
             </form>
+        </div>
+        <div id="resultadoConsulta">
+            <!-- Aqui será exibido o resultado da consulta -->
         </div>
     </section>
 
@@ -43,13 +46,50 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('consultaClienteForm');
+            const resultadoDiv = document.getElementById('resultadoConsulta');
             const menu = document.querySelector('.hamburger-menu');
             const navLinks = document.querySelector('.nav-links');
     
+            // Alterar Menu
             menu.addEventListener('click', function() {
                 navLinks.classList.toggle('active');
             });
+
+            // Lidar com o envio do formulário
+            form.addEventListener('submit', function(event) {
+                event.preventDefault(); // Impede o envio tradicional do formulário
+
+                // Obtém o valor do ID do cliente
+                const clienteId = form.cliente_id.value;
+
+                // Envia a requisição GET para o backend
+                fetch(`http://localhost:3000/consulta-cliente?cliente_id=${clienteId}`)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Cliente não encontrado');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        // Exibe os dados do cliente na página
+                        resultadoDiv.innerHTML = `
+                            <h3>Detalhes do Cliente</h3>
+                            <p>Nome: ${data.nome}</p>
+                            <p>Email: ${data.email}</p>
+                            <p>CPF: ${data.cpf}</p>
+                            <p>Telefone: ${data.telefone}</p>
+                            <p>Data de Nascimento: ${data.data_nascimento}</p>
+                        `;
+                    })
+                    .catch(error => {
+                        // Lida com erros (ex.: cliente não encontrado)
+                        resultadoDiv.innerHTML = `<p style="color:red;">${error.message}</p>`;
+                    });
+            });
         });
     </script>
+
+
 </body>
 </html>

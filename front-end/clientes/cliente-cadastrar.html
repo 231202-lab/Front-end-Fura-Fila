@@ -31,12 +31,12 @@
         <p>Crie o seu perfil para reservar mesas nos melhores restaurantes da sua cidade. Aproveite, é grátis!</p>
         <div class="form-container">
             <form id="cadastroClientes">
-                <input type="text" placeholder="Nome" required>
-                <input type="text" placeholder="CPF" required>
-                <input type="tel" placeholder="Telefone" required>
-                <input type="email" placeholder="Email" required>
-                <input type="date" placeholder="Data de Nascimento" required>
-                <input type="password" placeholder="Senha" required>
+                <input type="text" name="nome" placeholder="Nome" required>
+                <input type="text" name="cpf" placeholder="CPF" required>
+                <input type="tel" name="telefone" placeholder="Telefone" required>
+                <input type="email" name="email" placeholder="Email" required>
+                <input type="date" name="data_nascimento" placeholder="Data de Nascimento" required>
+                <input type="password" name="senha" placeholder="Senha" required>
                 <button type="submit">Cadastrar</button>
             </form>
         </div>
@@ -46,16 +46,50 @@
         <p>Direitos autorais © 2024</p>
     </footer>
 
-    <!--<script>
+    <script>
         document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('cadastroClientes');
             const menu = document.querySelector('.hamburger-menu');
             const navLinks = document.querySelector('.nav-links');
     
+            // Alternar Menu
             menu.addEventListener('click', function() {
                 navLinks.classList.toggle('active');
             });
+
+            // Lidar com o envio do formulário
+            form.addEventListener('submit', function(event) {
+                event.preventDefault(); // Impedir que o formulário seja enviado da maneira tradicional
+
+                // Crie um objeto FormData para armazenar os dados do formulário
+                const formData = new FormData(form);
+
+                // Converter o objeto FormData em um objeto JSON
+                const data = Object.fromEntries(formData.entries());
+
+                // Envie os dados para o backend usando a API Fetch
+                fetch('http://localhost:3000/cadastro-cliente', { // URL do backend
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                })
+                .then(response => response.json())
+                .then(data => {
+                    // caso Sucesso
+                    console.log('Success:', data);
+                    alert('Cadastro realizado com sucesso!');
+                })
+                .catch((error) => {
+                    // caso Erro
+                    console.error('Error:', error);
+                    alert('Ocorreu um erro ao realizar o cadastro.');
+                });
+            });
         });
-    </script>-->
-    <script src="../script.js"></script>
+    </script> 
+
+
 </body>
 </html>

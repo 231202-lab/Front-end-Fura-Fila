@@ -30,15 +30,15 @@
         <h2>Alteração de Cliente</h2>
         <p>Informe o código do cliente e informe qual será a alteração em seu cadastro</p>
         <div class="form-container">
-            <form>
-                <input type="text" placeholder="Informe o ID do cliente" required>
-                <input type="text" placeholder="Nome" required>
-                <input type="email" placeholder="Email" required>
-                <input type="text" placeholder="CPF" required>
-                <input type="tel" placeholder="Telefone" required>
-                <input type="date" placeholder="Data de Nascimento" required>
-                <input type="password" placeholder="Senha" required>
-                <button type="button" class="alterar-dados">Alterar dados</button>
+            <form action="/alterar-cliente-form">
+                <input type="text" name="cliente_id" placeholder="Informe o ID do cliente" required>
+                <input type="text" name="nome" placeholder="Nome" required>
+                <input type="email" name="email" placeholder="Email" required>
+                <input type="text" name="cpf" placeholder="CPF" required>
+                <input type="tel" name="telefone" placeholder="Telefone" required>
+                <input type="date" name="data_nascimento" placeholder="Data de Nascimento" required>
+                <input type="password" name="senha" placeholder="Senha" required>
+                <button type="submit" class="alterar-dados">Alterar dados</button>
             </form>
         </div>
     </section>
@@ -49,11 +49,45 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('alterar-cliente-form');
             const menu = document.querySelector('.hamburger-menu');
             const navLinks = document.querySelector('.nav-links');
+        
     
+            // Toggle menu
             menu.addEventListener('click', function() {
                 navLinks.classList.toggle('active');
+            });
+
+            // Lidar com o envio do formulário
+            form.addEventListener('submit', function(event) {
+                event.preventDefault(); // Impedir que o formulário seja enviado da maneira tradicional
+
+                // Crie um objeto FormData para armazenar os dados do formulário
+                const formData = new FormData(form);
+
+                // Converter o objeto FormData em um objeto JSON
+                const data = Object.fromEntries(formData.entries());
+
+                // Envie os dados para o backend usando a API Fetch
+                fetch('http://localhost:3000/alterar-cliente', { // URL do backend
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                })
+                .then(response => response.json())
+                .then(data => {
+                    // Caso sucesso
+                    console.log('Success:', data);
+                    alert('Dados alterados com sucesso!');
+                })
+                .catch((error) => {
+                    // Caso erro
+                    console.error('Error:', error);
+                    alert('Ocorreu um erro ao alterar os dados.');
+                });
             });
         });
     </script>

@@ -31,15 +31,15 @@
         <h2>Alteração de Restaurante</h2>
         <p>Informe o código do restaurante e informe qual será a alteração em seu cadastro</p>
         <div class="form-container">
-            <form>
-                <input type="text" placeholder="Informe o ID do restaurante" required>
-                <input type="text" placeholder="Nome do estabelecimento" required>
-                <input type="text" placeholder="CEP" required>
-                <input type="text" placeholder="Endereço" required>
-                <input type="number" placeholder="Número disponível para reservas" required>
-                <input type="tel" placeholder="Telefone" required>
-                <input type="password" placeholder="Senha" required>
-                <button type="button" class="alterar-dados">Alterar dados</button>
+            <form id="alteracaoRestauranteForm">
+                <input type="text" name="id" placeholder="Informe o ID do restaurante" required>
+                <input type="text" name="nome" placeholder="Nome do estabelecimento" required>
+                <input type="text" name="cep" placeholder="CEP" required>
+                <input type="text" name="endereco" placeholder="Endereço" required>
+                <input type="number" name="numeroReservas" placeholder="Número disponível para reservas" required>
+                <input type="tel" name="telefone" placeholder="Telefone" required>
+                <input type="password" name="senha" placeholder="Senha" required>
+                <button type="submit">Alterar dados</button>
             </form>
         </div>
     </section>
@@ -50,11 +50,54 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('alteracaoRestauranteForm');
             const menu = document.querySelector('.hamburger-menu');
             const navLinks = document.querySelector('.nav-links');
-    
+
+            // Alternar menu
             menu.addEventListener('click', function() {
                 navLinks.classList.toggle('active');
+            });
+
+            // Lidar com envio de formulário
+            form.addEventListener('submit', function(event) {
+                event.preventDefault(); // Impede o envio tradicional do formulário
+
+                // Coleta os dados do formulário
+                const formData = new FormData(form);
+                const data = {
+                    nome: formData.get('nome'),
+                    cep: formData.get('cep'),
+                    endereco: formData.get('endereco'),
+                    numeroReservas: formData.get('numeroReservas'),
+                    telefone: formData.get('telefone'),
+                    senha: formData.get('senha')
+                };
+
+                // Coleta o ID do restaurante
+                const id = formData.get('id');
+
+                // Envia a requisição PUT para o backend
+                fetch(`http://localhost:3000/alterar-restaurante/${id}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Erro ao alterar dados do restaurante');
+                    }
+                    return response.json();
+                })
+                .then(result => {
+                    alert(result.message);
+                    form.reset(); // Limpa o formulário após o sucesso
+                })
+                .catch(error => {
+                    alert(error.message);
+                });
             });
         });
     </script>

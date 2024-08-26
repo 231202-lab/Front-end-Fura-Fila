@@ -32,13 +32,13 @@
         <p>Crie o perfil do seu restaurante para receber reservas e tornar o seu estabelecimento cada vez mais popular.
             Aproveite, é grátis!</p>
         <div class="form-container">
-            <form>
-                <input type="text" placeholder="Nome do estabelecimento" required>
-                <input type="text" placeholder="CEP" required>
-                <input type="text" placeholder="Endereço" required>
-                <input type="number" placeholder="Número disponível para reservas" required>
-                <input type="tel" placeholder="Telefone" required>
-                <input type="password" placeholder="Senha" required>
+            <form id="cadastroRestauranteForm">
+                <input type="text" name="nome" placeholder="Nome do estabelecimento" required>
+                <input type="text" name="cep" placeholder="CEP" required>
+                <input type="text" name="endereco" placeholder="Endereço" required>
+                <input type="number" name="numeroReservas" placeholder="Número disponível para reservas" required>
+                <input type="tel" name="telefone" placeholder="Telefone" required>
+                <input type="password" name="senha" placeholder="Senha" required>
                 <button type="submit">Cadastrar</button>
             </form>
         </div>
@@ -50,13 +50,54 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('cadastroRestauranteForm');
             const menu = document.querySelector('.hamburger-menu');
             const navLinks = document.querySelector('.nav-links');
-    
+
+            // Alternar menu
             menu.addEventListener('click', function() {
                 navLinks.classList.toggle('active');
             });
+
+            // Lidar com envio de formulário
+            form.addEventListener('submit', function(event) {
+                event.preventDefault(); // Impede o envio tradicional do formulário
+
+                // Coleta os dados do formulário
+                const formData = new FormData(form);
+                const data = {
+                    nome: formData.get('nome'),
+                    cep: formData.get('cep'),
+                    endereco: formData.get('endereco'),
+                    numeroReservas: formData.get('numeroReservas'),
+                    telefone: formData.get('telefone'),
+                    senha: formData.get('senha')
+                };
+
+                // Envia a requisição POST para o backend
+                fetch('http://localhost:3000/cadastrar-restaurante', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Erro ao cadastrar restaurante');
+                    }
+                    return response.json();
+                })
+                .then(result => {
+                    alert(result.message);
+                    form.reset(); // Limpa o formulário após o sucesso
+                })
+                .catch(error => {
+                    alert(error.message);
+                });
+            });
         });
     </script>
+
 </body>
 </html>

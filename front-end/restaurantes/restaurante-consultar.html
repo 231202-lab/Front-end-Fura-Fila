@@ -32,9 +32,12 @@
         <p>Informe o código do restaurante para realizar a consulta</p>
         <div class="form-container">
             <form>
-                <input type="text" placeholder="Informe o ID do restaurante" required>
-                <button type="button" class="alterar-dados">Consultar</button>
+                <input type="text" name="restaurante_id" placeholder="Informe o ID do restaurante" required>
+                <button type="submit" class="consultar-dados">Consultar</button>
             </form>
+        </div>
+        <div id="resultadoConsulta">
+            <!-- Aqui será exibido o resultado da consulta -->
         </div>
     </section>
 
@@ -44,11 +47,42 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('consultaRestauranteForm');
+            const resultadoDiv = document.getElementById('resultadoConsulta');
             const menu = document.querySelector('.hamburger-menu');
             const navLinks = document.querySelector('.nav-links');
     
+            // Alternar menu
             menu.addEventListener('click', function() {
                 navLinks.classList.toggle('active');
+            });
+
+            // Lidar com envio de formulário
+            form.addEventListener('submit', function(event) {
+                event.preventDefault(); // Impede o envio tradicional do formulário
+
+                // Obtém o valor do ID do restaurante
+                const restauranteId = form.restaurante_id.value;
+
+                // Envia a requisição GET para o backend
+                fetch(`http://localhost:3000/consultar-restaurante?restaurante_id=${restauranteId}`)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Restaurante não encontrado');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        // Exibe os dados do restaurante na página
+                        resultadoDiv.innerHTML = `
+                            <p><strong>Nome:</strong> ${data.nome}</p>
+                            <p><strong>Localização:</strong> ${data.localizacao}</p>
+                        `;
+                    })
+                    .catch(error => {
+                        // Lida com erros (ex.: restaurante não encontrado)
+                        resultadoDiv.innerHTML = `<p style="color:red;">${error.message}</p>`;
+                    });
             });
         });
     </script>
