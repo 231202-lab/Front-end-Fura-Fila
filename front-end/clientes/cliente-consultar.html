@@ -64,7 +64,7 @@
                 const clienteId = form.cliente_id.value;
 
                 // Envia a requisição GET para o backend
-                fetch(`http://localhost:3000/consulta-cliente?cliente_id=${clienteId}`)
+                fetch(`http://localhost:8080/consulta-cliente?cliente_id=${clienteId}`)
                     .then(response => {
                         if (!response.ok) {
                             throw new Error('Cliente não encontrado');

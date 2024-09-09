@@ -67,7 +67,7 @@
                 const restauranteId = form.restaurante_id.value;
 
                 // Envia a requisição DELETE para o backend
-                fetch(`http://localhost:3000/deletar-restaurante?restaurante_id=${restauranteId}`, {
+                fetch(`http://localhost:8080/deletar-restaurante?restaurante_id=${restauranteId}`, {
                     method: 'DELETE'
                 })
                     .then(response => {

@@ -65,7 +65,7 @@
                 const restauranteId = form.restaurante_id.value;
 
                 // Envia a requisição GET para o backend
-                fetch(`http://localhost:3000/consultar-restaurante?restaurante_id=${restauranteId}`)
+                fetch(`http://localhost:8080/consultar-restaurante?restaurante_id=${restauranteId}`)
                     .then(response => {
                         if (!response.ok) {
                             throw new Error('Restaurante não encontrado');
